@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "SignUp";
+}
+
+@model SignUpViewModel
+<div class="d-flex justify-content-center align-items-center vh-100 bg-grey">
+    <div class="card shadow-lg rounded-4 p-4" style="width: 420px;">
+        <h3 class="text-center mb-4">Kayıt Ol</h3>
+
+        <form method="post" action="/Home/SignUp">
+            <div class="form-group mb-3">
+                <label for="UserName" class="mb-2" asp-for="UserName"></label>
+                <input type="text" class="form-control rounded-pill" id="UserName" name="UserName" placeholder="Kullanıcı adınızı girin" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="Email" class="mb-2" asp-for="Email"></label>
+                <input type="email" class="form-control rounded-pill" id="Email" name="Email" placeholder="ornek@mail.com" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="Phone" class="mb-2" asp-for="Phone"></label>
+                <input type="tel" class="form-control rounded-pill" id="Phone" name="Phone" placeholder="05xx xxx xx xx" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="Password" class="mb-2" asp-for="Password"></label>
+                <input type="password" class="form-control rounded-pill" id="Password" name="Password" placeholder="Şifre girin" />
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="ConfirmPassword" class="mb-2" asp-for="ConfirmPassword"></label>
+                <input type="password" class="form-control rounded-pill" id="ConfirmPassword" name="ConfirmPassword" placeholder="Şifrenizi tekrar girin" />
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary w-100 rounded-pill">Kayıt Ol</button>
+        </form>
+    </div>
+</div>
+
