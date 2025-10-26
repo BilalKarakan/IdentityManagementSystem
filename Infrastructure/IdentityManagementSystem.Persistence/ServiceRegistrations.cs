@@ -1,4 +1,10 @@
-﻿using IdentityManagementSystem.Persistence.Context;
+﻿using FluentValidation;
+using IdentityManagementSystem.Application.Repositories;
+using IdentityManagementSystem.Application.Services;
+using IdentityManagementSystem.Domain.Entities;
+using IdentityManagementSystem.Persistence.Context;
+using IdentityManagementSystem.Persistence.Repositories;
+using IdentityManagementSystem.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,5 +18,21 @@ public static class ServiceRegistrations
         {
             options.UseNpgsql(Configuration.ConnectionString, m => m.MigrationsAssembly("IdentityManagementSystem.Persistence"));
         });
+
+        service.AddIdentity<AppUser, AppRole>(options =>
+        {
+            options.User.RequireUniqueEmail = true;
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireNonAlphanumeric = true;
+
+        }).AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
+
+        service.AddAutoMapper(typeof(AssemblyReference).Assembly);
+        service.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
+
+        service.AddScoped<IRegisterService, RegisterService>();
+        service.AddScoped<IRegisterRepository, RegisterRepository>();
     }
 }
