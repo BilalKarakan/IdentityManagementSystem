@@ -1,1 +1,24 @@
-﻿UserList
+﻿@model List<UserListDto>
+
+<h1>Üye Listesi</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Kullanıcı Adı</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefon Numarası</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model as List<UserListDto>)
+        {
+            <tr>
+                <td scope="row">@user.Id</td>
+                <td scope="row">@user.UserName</td>
+                <td scope="row">@user.Email</td>
+                <td scope="row">@user.PhoneNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>

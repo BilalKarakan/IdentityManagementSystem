@@ -3,8 +3,9 @@ using IdentityManagementSystem.Application.Repositories;
 using IdentityManagementSystem.Application.Services;
 using IdentityManagementSystem.Domain.Entities;
 using IdentityManagementSystem.Persistence.Context;
+using IdentityManagementSystem.Persistence.Register.Services;
 using IdentityManagementSystem.Persistence.Repositories;
-using IdentityManagementSystem.Persistence.Services;
+using IdentityManagementSystem.Persistence.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,5 +35,7 @@ public static class ServiceRegistrations
 
         service.AddScoped<IRegisterService, RegisterService>();
         service.AddScoped<IRegisterRepository, RegisterRepository>();
+        service.AddScoped<IUserRepository, UserRepository>();
+        service.AddScoped<IUserService, UserService>();
     }
 }

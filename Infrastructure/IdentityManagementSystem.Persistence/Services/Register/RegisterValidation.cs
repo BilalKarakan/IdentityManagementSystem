@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using IdentityManagementSystem.Application.DTOs;
 
-namespace IdentityManagementSystem.Persistence.Services;
+namespace IdentityManagementSystem.Persistence.Register.Services;
 
 public class RegisterValidation : AbstractValidator<SignUpDto>
 {

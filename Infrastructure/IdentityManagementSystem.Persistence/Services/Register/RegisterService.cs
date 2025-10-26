@@ -5,7 +5,7 @@ using IdentityManagementSystem.Application.Services;
 using IdentityManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace IdentityManagementSystem.Persistence.Services;
+namespace IdentityManagementSystem.Persistence.Register.Services;
 
 public class RegisterService(IRegisterRepository _repository, IMapper _mapper) : IRegisterService
 {
