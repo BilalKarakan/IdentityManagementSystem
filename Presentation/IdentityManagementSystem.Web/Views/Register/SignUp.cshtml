@@ -2,6 +2,10 @@
     ViewData["Title"] = "SignUp";
 }
 
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
 @model SignUpDto
 <div class="d-flex justify-content-center align-items-center vh-100 bg-grey">
     <div class="card shadow-lg rounded-4 p-4" style="width: 420px;">
