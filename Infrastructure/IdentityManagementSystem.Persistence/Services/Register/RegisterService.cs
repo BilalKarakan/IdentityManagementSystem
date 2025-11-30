@@ -11,7 +11,7 @@ public class RegisterService(IRegisterRepository _repository, IMapper _mapper) :
 {
     public async Task<IdentityResult> CreateAsync(SignUpDto signUpDto)
     {
-        var identityResult = await _repository.CreateAsync(_mapper.Map<AppUser>(signUpDto));
+        var identityResult = await _repository.CreateAsync(_mapper.Map<AppUser>(signUpDto), signUpDto.Password);
         return identityResult;
     }
 }

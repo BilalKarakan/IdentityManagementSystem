@@ -3,6 +3,7 @@ using IdentityManagementSystem.Application.Repositories;
 using IdentityManagementSystem.Application.Services;
 using IdentityManagementSystem.Domain.Entities;
 using IdentityManagementSystem.Persistence.Context;
+using IdentityManagementSystem.Persistence.CustomValidations;
 using IdentityManagementSystem.Persistence.Register.Services;
 using IdentityManagementSystem.Persistence.Repositories;
 using IdentityManagementSystem.Persistence.Services.User;
@@ -15,11 +16,6 @@ public static class ServiceRegistrations
 {
     public static void AddPersistenceServices(this IServiceCollection service)
     {
-        service.AddDbContext<IdentityManagementSystemDbContext>(options =>
-        {
-            options.UseNpgsql(Configuration.ConnectionString, m => m.MigrationsAssembly("IdentityManagementSystem.Persistence"));
-        });
-
         service.AddIdentity<AppUser, AppRole>(options =>
         {
             options.User.RequireUniqueEmail = true;
@@ -28,7 +24,12 @@ public static class ServiceRegistrations
             options.Password.RequireUppercase = true;
             options.Password.RequireNonAlphanumeric = true;
 
-        }).AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
+        }).AddPasswordValidator<PasswordValidator>().AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
+
+        service.AddDbContext<IdentityManagementSystemDbContext>(options =>
+        {
+            options.UseNpgsql(Configuration.ConnectionString, m => m.MigrationsAssembly("IdentityManagementSystem.Persistence"));
+        });
 
         service.AddAutoMapper(typeof(AssemblyReference).Assembly);
         service.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);

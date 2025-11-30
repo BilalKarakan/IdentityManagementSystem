@@ -5,5 +5,5 @@ namespace IdentityManagementSystem.Application.Repositories;
 
 public interface IRegisterRepository
 {
-    Task<IdentityResult> CreateAsync(AppUser user);
+    Task<IdentityResult> CreateAsync(AppUser user, string password);
 }
