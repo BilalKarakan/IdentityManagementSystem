@@ -24,7 +24,7 @@ public static class ServiceRegistrations
             options.Password.RequireUppercase = true;
             options.Password.RequireNonAlphanumeric = true;
 
-        }).AddPasswordValidator<PasswordValidator>().AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
+        }).AddUserValidator<UserValidator>().AddPasswordValidator<PasswordValidator>().AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
 
         service.AddDbContext<IdentityManagementSystemDbContext>(options =>
         {
