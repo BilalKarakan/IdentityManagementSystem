@@ -4,6 +4,7 @@ using IdentityManagementSystem.Application.Services;
 using IdentityManagementSystem.Domain.Entities;
 using IdentityManagementSystem.Persistence.Context;
 using IdentityManagementSystem.Persistence.CustomValidations;
+using IdentityManagementSystem.Persistence.Localizations;
 using IdentityManagementSystem.Persistence.Register.Services;
 using IdentityManagementSystem.Persistence.Repositories;
 using IdentityManagementSystem.Persistence.Services.User;
@@ -24,7 +25,7 @@ public static class ServiceRegistrations
             options.Password.RequireUppercase = true;
             options.Password.RequireNonAlphanumeric = true;
 
-        }).AddUserValidator<UserValidator>().AddPasswordValidator<PasswordValidator>().AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
+        }).AddUserValidator<UserValidator>().AddPasswordValidator<PasswordValidator>().AddErrorDescriber<LocalicationIdentityErrorDescriber>().AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
 
         service.AddDbContext<IdentityManagementSystemDbContext>(options =>
         {
