@@ -1,5 +1,7 @@
 ﻿using IdentityManagementSystem.Application.DTOs;
 using IdentityManagementSystem.Application.Services;
+using IdentityManagementSystem.Domain.Entities;
+using IdentityManagementSystem.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,10 +32,36 @@ namespace IdentityManagementSystem.Web.Controllers
                 return RedirectToAction("SignUp", "Register");
             }
 
-            foreach (IdentityError error in identityResult.Errors)
+            ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SignInAsync()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignInAsync(SignInDto model, string? returnUrl = null)
+        {
+            returnUrl = returnUrl ?? Url.Action("Index", "Home");
+
+            var hasUser = await _service.FindUserByEmailAsync(model.Email) as AppUser;
+
+            if (hasUser is null)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                ModelState.AddModelError(string.Empty, "Email veya şifre yanlış");
+                return View();
             }
+
+            var signInResult = await _service.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, false);
+
+            if (signInResult.Succeeded)
+                return Redirect(returnUrl);
+
+            ModelState.AddModelErrorList(new List<string> { "Email veya şifre yanlış" });
 
             return View();
         }
