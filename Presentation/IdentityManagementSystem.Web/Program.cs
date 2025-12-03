@@ -9,7 +9,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     var cookieBuilder = new CookieBuilder();
 
-    options.LoginPath = new PathString("/Home/SignIn");
+    options.LoginPath = new PathString("/Register/SignIn");
     options.LogoutPath = new PathString("/Register/Logout");
     cookieBuilder.Name = "IMSAuthCookie";
     options.Cookie = cookieBuilder;
@@ -28,6 +28,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

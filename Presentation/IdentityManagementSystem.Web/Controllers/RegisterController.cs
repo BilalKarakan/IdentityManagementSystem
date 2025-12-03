@@ -2,13 +2,19 @@
 using IdentityManagementSystem.Application.Services;
 using IdentityManagementSystem.Domain.Entities;
 using IdentityManagementSystem.Web.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace IdentityManagementSystem.Web.Controllers
 {
     public class RegisterController(IRegisterService _service) : Controller
     {
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Index() => View();
+
         [HttpGet]
         public async Task<IActionResult> SignUpAsync()
         {

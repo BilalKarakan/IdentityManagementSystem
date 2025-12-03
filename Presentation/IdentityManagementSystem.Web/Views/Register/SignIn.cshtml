@@ -5,7 +5,7 @@
 @model SignInDto
 
 <h3 class="text-center mb-4">Giriş Yap</h3>
-<form asp-controller="Register" asp-action = "SignIn" method="post" >
+<form asp-controller="Register" asp-action = "SignIn" asp-route-returnUrl = "@Context.Request.Query["returnUrl"]" method="post" >
     <div asp-validation-summary="ModelOnly" class="alert alert-danger">
     </div>
     <div class="form-group mb-3">
