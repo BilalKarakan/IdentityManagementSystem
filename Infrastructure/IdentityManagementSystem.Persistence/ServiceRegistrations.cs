@@ -25,6 +25,9 @@ public static class ServiceRegistrations
             options.Password.RequireUppercase = true;
             options.Password.RequireNonAlphanumeric = true;
 
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+            options.Lockout.MaxFailedAccessAttempts = 3;
+
         }).AddUserValidator<UserValidator>().AddPasswordValidator<PasswordValidator>().AddErrorDescriber<LocalicationIdentityErrorDescriber>().AddEntityFrameworkStores<IdentityManagementSystemDbContext>();
 
         service.AddDbContext<IdentityManagementSystemDbContext>(options =>

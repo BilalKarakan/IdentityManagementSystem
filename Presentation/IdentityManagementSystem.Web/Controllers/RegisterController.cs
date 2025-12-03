@@ -56,12 +56,18 @@ namespace IdentityManagementSystem.Web.Controllers
                 return View();
             }
 
-            var signInResult = await _service.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, false);
+            var signInResult = await _service.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, true);
 
             if (signInResult.Succeeded)
                 return Redirect(returnUrl);
 
-            ModelState.AddModelErrorList(new List<string> { "Email veya şifre yanlış" });
+            if (signInResult.IsLockedOut)
+            {
+                ModelState.AddModelError(string.Empty, "Hesabınız belirli bir süreliğine kilitlenmiştir. Lütfen daha sonra tekrar deneyiniz.");
+                return View();
+            }
+
+            ModelState.AddModelErrorList(new List<string> { "Email veya şifre yanlış", $"Başarısız giriş sayısı: {await _service.GetAccessFailedCountAsync(hasUser)}" });
 
             return View();
         }
