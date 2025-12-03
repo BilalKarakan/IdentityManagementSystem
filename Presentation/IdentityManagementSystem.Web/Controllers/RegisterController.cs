@@ -71,5 +71,8 @@ namespace IdentityManagementSystem.Web.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public async Task Logout() => await _service.SignOutAsync();
     }
 }

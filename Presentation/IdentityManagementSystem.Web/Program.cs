@@ -10,6 +10,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     var cookieBuilder = new CookieBuilder();
 
     options.LoginPath = new PathString("/Home/SignIn");
+    options.LogoutPath = new PathString("/Register/Logout");
     cookieBuilder.Name = "IMSAuthCookie";
     options.Cookie = cookieBuilder;
     options.ExpireTimeSpan = TimeSpan.FromDays(7);

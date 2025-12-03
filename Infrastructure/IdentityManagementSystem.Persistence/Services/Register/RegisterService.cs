@@ -13,4 +13,5 @@ public class RegisterService(IRegisterRepository _repository, IMapper _mapper) :
     public async Task<IdentityUser> FindUserByEmailAsync(string email) => await _repository.FindUserByEmailAsync(email);
     public async Task<SignInResult> PasswordSignInAsync(AppUser user, string password, bool isPersistent, bool lockoutOnFailure) => await _repository.PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
     public async Task<int> GetAccessFailedCountAsync(AppUser user) => await _repository.GetAccessFailedCountAsync(user);
+    public async Task SignOutAsync() => await _repository.SignOutAsync();
 }
